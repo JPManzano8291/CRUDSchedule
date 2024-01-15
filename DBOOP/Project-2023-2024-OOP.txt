@@ -1,0 +1,174 @@
+------------------------------------------------------------------------------------------------------------------------------------------
+Dimension Tables:
+------------------------------------------------------------------------------------------------------------------------------------------
+
+1. SY (sy) 
+   PK: sy
+
+   Data sample:	2023-2024
+         	2024-2025
+
+2. SEMESTER (semester) 
+   PK: semester
+   
+   Data sample:	1
+             	2
+             	3
+             	S
+
+3. STUDENT (student_no, lastname, firstname, email, gender, course_code, cp_num, address, bday, status) 
+   PK: student_no FK: course_code 
+   
+   Data sample:	12345  Atienza	Francis    fcatienza@yahoo.com  M  BSCS-CS  09981234567  Cavite  Jan-12-2000  A
+ 
+4. COURSE (course_code, description, college_code, date_opened, date_closed, status) 
+   CK: course_code, date_opened, date_closed 
+   FK: college_code
+
+   Data Sample:	BSCS-CS BSComputer Studies-Computer Science  06-01-2000  12-31-9999  A
+		BSN	BSNursing			     06-01-2000  12-31-9999  A
+		BSIM	BSInformation Management	     06-01-2000  12-31-2008  I
+
+5. COLLEGE(college_code, description, date_opened, date_closed, status) 
+   CK: college_code, date_opened, date_closed
+
+   Data Sample:	CET     College of Engineering and Technology  06-01-1970 12-31-9999 A
+
+6. ILLNESS (illness_code, description, status) 
+   PK: illness_code
+
+   Data Sample:	C001	Cough	  A
+                F001	Flu	  A
+       		M001	Migraine  A	
+
+7. EMPLOYEE (employee_id, lastname, firstname, email, gender, cp_num, address, bday, status) 
+   PK: employee_id
+
+   Data Sample: E001  Regala	Richard	     rregala@yahoo.com   M    09987654321  Manila   null   A
+		E002  Santos	Rene	     rsantos@yahoo.com   M    09997654321  Manila   null   A
+		E003  Cruz	Mark	     mcruz@yahoo.com   	 M    09157654321  Manila   null   A
+
+
+8. SEVERITY( severity_code, description)  
+   PK: severity_code
+
+   Data Sample:	1	Mild 
+                2	Average
+                3	High 
+		4	Severe 
+
+9. VIOLATION (violation_code, description, severity_code, status) 
+   PK: violation_code  
+   FK: severity_code 
+
+   Data Sample:	UNIF001   Not Wearing of Proper Uniform    2    A
+		HAIR001   Improper Haircut for Male	   1    A
+		THE001    Theft			           3    A
+                CHE001    Cheating in Major Examination    4    A
+                CHE002    Cheating in Quizzes              3    A
+
+
+10.BOOK (book_id, description, author, publisher, date_published, price, ISBN, status)K (
+   PK: book_id
+ 
+   Data Sample:	TRI001	Trigonometry by Perez	Dr. Angelita Perez	01-01-2000	350.00	ISBN12345545  A
+		JAV001	Java Programming	Dr. Jose Cruz		01-01-2010	550.00	ISBN12345845  A
+
+11. SUBJECT (subject_code, description, units, curriculum, college_code, status)
+   CK: subject_code, college_code
+
+   Data Sample:	MTH001	Mathematics in the Modern World	3  2019   CED   A
+		MTH001	Mathematics in the Modern World	3  2019   CET   A
+		MTH001	Mathematics in the Modern World	3  2019   CAS   A
+		MTH001	Mathematics in the Modern World	3  2019   CN    A
+		CAL001	Math Analysis 1			5  2010   CET   A
+		CAL001  Calculus 1			3  2015   CED   A
+		OOP1	Object Oriented Programming	3  2010   CET   A
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Fact Tables:
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+CLINIC:
+
+CONSULTATION  (sy, semester, student_no, illness_code, attending_physician_id, prepared_by_id, date_consulted, diagnosis) 
+         CK: sy, semester, student_no,illness_code, date_consulted		
+         FK: sy, semester, student_no, illness_code, attending_physician_id references EMPLOYEE(employee_no), prepared_by_id references EMPLOYEE(employee_no)
+
+
+Data Sample:  2023-2024	  1   12345  C001  E001	 E001  12-01-2023  Advice to take a 2-day rest.
+	      2023-2024	  1   12345  F001  E001	 E001  12-05-2023  Advice to take a medication and 1 week rest.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+OSA:
+
+VIOLATION_RECORD (sy, semester, student_no, violation_code, attending_psychometrician_id, date_of_violation, recommendation)
+         CK: sy, semester, student_no, violation_code, date_of_violation
+         FK: sy, semester, student_no, violation_code, attending_psychometrician_id references EMPLOYEE(employee_no)
+
+Data Sample: 2023-2024	  1   12345  UNIF001  E002  12-01-2023  Advise to wear proper of uniform.
+	     2023-2024	  1   12345  CHE001   E002  12-10-2023  Honorable Dismissal.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+LIBRARY:
+
+BOOK_RESERVATION ( sy, semester, student_no, book_id, date_reserved, date_returned, fine, librarian_id, librarian_remark)
+         CK: sy, semester, student_no, book_id, date_reserved 
+         FK: sy, semester, student_no, book_id, librarian_id references EMPLOYEE(employee_no)
+
+Data Sample: 2023-2024	  1   12345  TRI001  12-01-2023  null  0   E003   Book was reserved by the student.
+             2023-2024	  1   12345  JAV001  12-01-2023  null  0   E003   Book was reserved by the student.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+ENROLLMENT:
+
+
+SUBJECT_SCHEDULE (sy, semester, college_code, block_no, subject_code, day, time, room,type, sequence_no, faculty_id)
+   CK: sy, semester, block_no, subject_code, sequence_no, college_code)
+   FK: sy, semester, block_no, subject_code, college_code, faculty_id references EMPLOYEE(empDloyee_no)
+
+Data Sample: 2023-2024   1   CET CS21    OOP1  	S  8:00-10:00   GCA301  F2F   01   E003  
+	     2023-2024   1   CET CS21    OOP1  	W  18:00-21:00  MSTeams OL    02   E003
+	     2023-2024   1   CET CS21    CAL001 W  15:00-18:00  GCA201 	F2F   01   E002
+	     2023-2024   1   CET CS22    OOP1  	S  10:00-12:00  GCA301  F2F   01   E003
+	     2023-2024   1   CET CS22    OOP1  	Th 18:00-21:00  MSTeams OL    02   E003
+	     2023-2024   1   CET CS22    CAL001 Th 15:00-18:00  GCA201 	F2F   01   E002
+	     2023-2024   1   CET CS23    OOP1  	S  12:00-14:00  GCA301  F2F   01   E003
+	     2023-2024   1   CET CS23    OOP1  	F  18:00-21:00  MSTeams OL    02   E003
+	     2023-2024   1   CET CS23    CAL001 F  15:00-18:00  GCA201 	F2F   01   E002
+     	     2023-2024   1   CED EDUC23  CAL001 F  18:00-21:00  GCA201 	F2F   01   E002
+
+
+
+GRADE (sy, semester, student_no, subject_code, block_no, grade (1.00, 1.25, etc))
+   CK: sy, semester, student_no, subject_code
+   FK: sy, semester, student_no, subject_code
+
+Data Sample:	2023-2024  1   12345   OOP1  	CS21   3.00
+		2023-2024  1   12345   CAL001  	CS21   3.00
+
+
+------------------------------------------------------------------------------------------------------------------------------------------    
+ 
+Project Requirements:
+
+1. Good GUI.
+2. There should be Add, Edit, Delete on each Dimension table and transaction should be saved in fact table.
+3. Provide as many views as you can. 
+4. The entire system should be functional.
+5. Provide documentation on to use the system, screenshots, source code, jar files.
+6. Present the system as a group.
+
+
+Grade Criteria:
+					
+GUI			20%	
+Functionality		40%	
+Views Created		20%
+Group Presentation	10%
+Documentation		10%
+===========================
+	       	       100%
