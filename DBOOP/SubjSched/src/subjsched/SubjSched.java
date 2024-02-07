@@ -8,6 +8,10 @@ import java.awt.HeadlessException;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.util.Objects;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -18,6 +22,7 @@ public class SubjSched extends javax.swing.JFrame {
     Connection con = javaConnection.connectdb();
     PreparedStatement pst = null;
     ResultSet rs = null;
+    private int SCHED_ID;
     
     public SubjSched() {
         initComponents();
@@ -55,6 +60,20 @@ public class SubjSched extends javax.swing.JFrame {
     }
 }
 
+private void clearComboBoxes() {
+    cbSY.setSelectedIndex(-1);
+    cbSem.setSelectedIndex(-1);
+    cbColC.setSelectedIndex(0);
+    cbBlkNum.setSelectedIndex(-1);
+    cbSubC.setSelectedIndex(-1);
+    cbDay.setSelectedIndex(-1);
+    cbType.setSelectedIndex(-1);
+    cbSeqNum.setSelectedIndex(-1);
+    cbFaqID.setSelectedIndex(-1);
+    tfTime.setText("");
+    tfRoom.setText("");
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,33 +84,36 @@ public class SubjSched extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cbSY2 = new javax.swing.JComboBox<>();
+        cbSY4 = new javax.swing.JComboBox<>();
+        cbSY9 = new javax.swing.JComboBox<>();
         panSched = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnGrade = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        tfsy = new javax.swing.JTextField();
-        tfSemester = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfColC = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tfDay = new javax.swing.JTextField();
-        tfSubC = new javax.swing.JTextField();
-        tfBlkNum = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tfRoom = new javax.swing.JTextField();
-        tfType = new javax.swing.JTextField();
         tfTime = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        tfFaqID = new javax.swing.JTextField();
-        tfSeqNum = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        cbSem = new javax.swing.JComboBox<>();
+        cbSY = new javax.swing.JComboBox<>();
+        cbColC = new javax.swing.JComboBox<>();
+        cbBlkNum = new javax.swing.JComboBox<>();
+        cbDay = new javax.swing.JComboBox<>();
+        cbType = new javax.swing.JComboBox<>();
+        cbSeqNum = new javax.swing.JComboBox<>();
+        cbFaqID = new javax.swing.JComboBox<>();
+        cbSubC = new javax.swing.JComboBox<>();
+        btnEnroll = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -103,6 +125,15 @@ public class SubjSched extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSched = new javax.swing.JTable();
 
+        cbSY2.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbSY2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbSY4.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbSY4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbSY9.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbSY9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panSched.setBackground(new java.awt.Color(0, 153, 0));
@@ -111,15 +142,6 @@ public class SubjSched extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Enrollment System");
-
-        btnGrade.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        btnGrade.setText("Grades");
-        btnGrade.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnGrade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGradeActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,6 +167,10 @@ public class SubjSched extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("DAY:");
 
+        tfRoom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        tfTime.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+
         jLabel9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("TIME:");
@@ -167,6 +193,42 @@ public class SubjSched extends javax.swing.JFrame {
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/subjsched/logo.png"))); // NOI18N
 
+        cbSem.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbSem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "1", "2" }));
+
+        cbSY.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbSY.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "2022-2023", "2023-2024" }));
+
+        cbColC.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbColC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CET" }));
+
+        cbBlkNum.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbBlkNum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "IT31", "IT32", "IT33", "IT34", "IT35" }));
+
+        cbDay.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "M", "T", "W", "Th", "F", "S" }));
+
+        cbType.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "F2F", "OLC" }));
+
+        cbSeqNum.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbSeqNum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "01", "02", "03" }));
+
+        cbFaqID.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbFaqID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "E001", "E002", "E003" }));
+
+        cbSubC.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cbSubC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "GEISO1", "IT311", "IT312", "IT313", "IT314", "IT315", "IT316" }));
+
+        btnEnroll.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnEnroll.setText("   Enroll Student");
+        btnEnroll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEnroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnrollActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panSchedLayout = new javax.swing.GroupLayout(panSched);
         panSched.setLayout(panSchedLayout);
         panSchedLayout.setHorizontalGroup(
@@ -174,65 +236,68 @@ public class SubjSched extends javax.swing.JFrame {
             .addGroup(panSchedLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfsy, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panSchedLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfColC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panSchedLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfSubC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfDay, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbSubC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tfTime, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panSchedLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfType, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
+                    .addGroup(panSchedLayout.createSequentialGroup()
                         .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfSeqNum, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                            .addComponent(tfFaqID))))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbSY, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbSem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbFaqID, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbColC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbDay, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbType, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(cbSeqNum, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnEnroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel1)
                         .addGap(126, 126, 126))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(73, 73, 73))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                        .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117))))
+                        .addGap(85, 85, 85))))
+            .addGroup(panSchedLayout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(jLabel14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panSchedLayout.setVerticalGroup(
             panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,52 +309,52 @@ public class SubjSched extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGrade)
+                .addComponent(btnEnroll, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfsy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbSY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbSem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfColC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(cbColC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSubC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cbSubC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(cbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSeqNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(cbSeqNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFaqID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(cbFaqID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 0));
@@ -352,16 +417,16 @@ public class SubjSched extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Schedule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+            .addComponent(Schedule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnView, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -369,11 +434,11 @@ public class SubjSched extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(Schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(180, 180, 180)
+                .addGap(186, 186, 186)
                 .addComponent(btnAdd)
                 .addGap(18, 18, 18)
                 .addComponent(btnEdit)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSave)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,7 +446,7 @@ public class SubjSched extends javax.swing.JFrame {
                 .addComponent(btnDelete)
                 .addGap(18, 18, 18)
                 .addComponent(btnView)
-                .addGap(62, 62, 62))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tblSched.setModel(new javax.swing.table.DefaultTableModel(
@@ -427,14 +492,14 @@ public class SubjSched extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panSched, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panSched, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -443,13 +508,12 @@ public class SubjSched extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         try {
             int selectedRow = tblSched.getSelectedRow();
-            
+
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(this, "Please select a row to edit.");
                 return;
             }
-            
-            
+
             String sy = tblSched.getValueAt(selectedRow, 1).toString();
             String semester = tblSched.getValueAt(selectedRow, 2).toString();
             String colC = tblSched.getValueAt(selectedRow, 3).toString();
@@ -461,20 +525,21 @@ public class SubjSched extends javax.swing.JFrame {
             String type = tblSched.getValueAt(selectedRow, 9).toString();
             String seqNum = tblSched.getValueAt(selectedRow, 10).toString();
             String faqID = tblSched.getValueAt(selectedRow, 11).toString();
-            
-            tfsy.setText(sy);
-            tfSemester.setText(semester);
-            tfColC.setText(colC);
-            tfBlkNum.setText(blkNum);
-            tfSubC.setText(subC);
-            tfDay.setText(day);
+
+            // Set the values to the corresponding fields
+            cbSY.setSelectedItem(sy);
+            cbSem.setSelectedItem(semester);
+            cbColC.setSelectedItem(colC);
+            cbBlkNum.setSelectedItem(blkNum);
+            cbSubC.setSelectedItem(subC);
+            cbDay.setSelectedItem(day);
             tfTime.setText(time);
             tfRoom.setText(room);
-            tfType.setText(type);
-            tfSeqNum.setText(seqNum);
-            tfFaqID.setText(faqID);
-            
-        } catch(Exception e) {
+            cbType.setSelectedItem(type);
+            cbSeqNum.setSelectedItem(seqNum);
+            cbFaqID.setSelectedItem(faqID);
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_btnEditActionPerformed
@@ -495,7 +560,7 @@ public class SubjSched extends javax.swing.JFrame {
                 
                 int idToDelete = Integer.parseInt(idToDeleteStr);
                 
-                String deleteQuery = "DELETE FROM tblschedule WHERE ID = ?";
+                String deleteQuery = "DELETE FROM tblschedule WHERE sched_ID = ?";
                 
                 try (PreparedStatement pstDelete = con.prepareStatement(deleteQuery)) {
                     pstDelete.setInt(1, idToDelete);
@@ -522,37 +587,30 @@ public class SubjSched extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {
-            String q = "INSERT INTO tblSchedule (sy, Semester, College_Code, Block_No, Subject_Code, Day, Time, Room, Type, Sequence_No, Faculty_ID) values (?,?,?,?,?,?,?,?,?,?,?)";
-            pst = con.prepareStatement(q);
-            pst.setString(1, tfsy.getText());
-            pst.setString(2, tfSemester.getText());
-            pst.setString(3, tfColC.getText());
-            pst.setString(4, tfBlkNum.getText());
-            pst.setString(5, tfSubC.getText());
-            pst.setString(6, tfDay.getText());
-            pst.setString(7, tfTime.getText());
-            pst.setString(8, tfRoom.getText());
-            pst.setString(9, tfType.getText());
-            pst.setString(10, tfSeqNum.getText());
-            pst.setString(11, tfFaqID.getText());
-            
-            pst.executeUpdate();
-            
-            tfsy.setText("");
-            tfSemester.setText("");
-            tfColC.setText("");
-            tfBlkNum.setText("");
-            tfSubC.setText("");
-            tfDay.setText("");
-            tfTime.setText("");
-            tfRoom.setText("");
-            tfType.setText("");
-            tfSeqNum.setText("");
-            tfFaqID.setText("");
-            updateTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-        }
+        String q = "INSERT INTO tblSchedule (sy, Semester, College_Code, Block_No, Subject_Code, sched_day, sched_Time, sched_Type, Room, Sequence_No, Faculty_ID) values (?,?,?,?,?,?,?,?,?,?,?)";
+        pst = con.prepareStatement(q);
+        
+        pst.setString(1, cbSY.getSelectedItem().toString());
+        pst.setString(2, cbSem.getSelectedItem().toString());
+        pst.setString(3, cbColC.getSelectedItem().toString());
+        pst.setString(4, cbBlkNum.getSelectedItem().toString());
+        pst.setString(5, cbSubC.getSelectedItem().toString());
+        pst.setString(6, cbDay.getSelectedItem().toString());
+        pst.setString(7, tfTime.getText());
+        pst.setString(8, cbType.getSelectedItem().toString());
+        pst.setString(9, tfRoom.getText());
+        pst.setString(10, cbSeqNum.getSelectedItem().toString());
+        pst.setString(11, cbFaqID.getSelectedItem().toString());
+
+        pst.executeUpdate();
+
+        // Clear the selected items in JComboBoxes
+        clearComboBoxes();
+        updateTable();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, e);
+    }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
@@ -560,17 +618,7 @@ public class SubjSched extends javax.swing.JFrame {
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-            tfsy.setText("");
-            tfSemester.setText("");
-            tfColC.setText("");
-            tfBlkNum.setText("");
-            tfSubC.setText("");
-            tfDay.setText("");
-            tfTime.setText("");
-            tfRoom.setText("");
-            tfType.setText("");
-            tfSeqNum.setText("");
-            tfFaqID.setText("");
+            clearComboBoxes();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -585,29 +633,22 @@ public class SubjSched extends javax.swing.JFrame {
         // Assuming you have a primary key column named "ID" in your database
         String idToUpdate = tblSched.getValueAt(selectedRow, 0).toString();
 
-        String updateQuery = "UPDATE tblSchedule SET sy=?, Semester=?, College_Code=?, Block_No=?, Subject_Code=?, Day=?, Time=?, Room=?, Type=?, Sequence_No=?, Faculty_ID=? WHERE ID=?";
+        String updateQuery = "UPDATE tblSchedule SET sy=?, Semester=?, College_Code=?, Block_No=?, Subject_Code=?, sched_day=?, sched_Time=?, sched_Type=?, Room=?, Sequence_No=?, Faculty_ID=? WHERE sched_ID=?";
 
         try (PreparedStatement pstUpdate = con.prepareStatement(updateQuery)) {
             
-            pstUpdate.setString(1, tfsy.getText());
-            pstUpdate.setString(2, tfSemester.getText());
-            pstUpdate.setString(3, tfColC.getText());
-            pstUpdate.setString(4, tfBlkNum.getText());
-            pstUpdate.setString(5, tfSubC.getText());
-            pstUpdate.setString(6, tfDay.getText());
+            // Set parameters for the update
+            pstUpdate.setString(1, Objects.requireNonNull(cbSY.getSelectedItem()).toString());
+            pstUpdate.setString(2, Objects.requireNonNull(cbSem.getSelectedItem()).toString());
+            pstUpdate.setString(3, Objects.requireNonNull(cbColC.getSelectedItem()).toString());
+            pstUpdate.setString(4, Objects.requireNonNull(cbBlkNum.getSelectedItem()).toString());
+            pstUpdate.setString(5, Objects.requireNonNull(cbSubC.getSelectedItem()).toString());
+            pstUpdate.setString(6, Objects.requireNonNull(cbDay.getSelectedItem()).toString());
             pstUpdate.setString(7, tfTime.getText());
-            pstUpdate.setString(8, tfRoom.getText());
-            pstUpdate.setString(9, tfType.getText());
-            
-             // Parse the text fields to integers
-            try {
-                pstUpdate.setInt(10, Integer.parseInt(tfSeqNum.getText()));
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Invalid value for Sequence Number. Please enter a valid integer.");
-                return;
-            }
-
-            pstUpdate.setString(11, tfFaqID.getText());
+            pstUpdate.setString(8, Objects.requireNonNull(cbType.getSelectedItem()).toString());
+            pstUpdate.setString(9, tfRoom.getText());
+            pstUpdate.setString(10, Objects.requireNonNull(cbSeqNum.getSelectedItem()).toString());
+            pstUpdate.setString(11, Objects.requireNonNull(cbFaqID.getSelectedItem()).toString());
             pstUpdate.setString(12, idToUpdate);
             
 
@@ -615,22 +656,43 @@ public class SubjSched extends javax.swing.JFrame {
 
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(this, "Changes saved successfully.");
-                // Optionally, update the JTable after saving changes
-                // updateTable();
             } else {
                 JOptionPane.showMessageDialog(this, "Error saving changes.");
             }
+            
+            updateTable();
+            clearComboBoxes();
         }
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, e);
     }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
-        Grades grd = new Grades();
-        grd.show();
-        dispose();
-    }//GEN-LAST:event_btnGradeActionPerformed
+    private Object[] getSelectedRowData(int selectedRow) {
+        // Assuming the table model is DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) tblSched.getModel();
+        int columnCount = model.getColumnCount();
+        Object[] rowData = new Object[columnCount];
+
+        for (int i = 0; i < columnCount; i++) {
+            rowData[i] = model.getValueAt(selectedRow, i);
+        }
+
+        return rowData;
+    }
+    
+    private void btnEnrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrollActionPerformed
+        // Enroll button action performed
+        int selectedRow = tblSched.getSelectedRow();
+        if (selectedRow != -1) {
+            Object[] selectedRowData = getSelectedRowData(selectedRow);
+            Enroll enroll = new Enroll(selectedRowData);
+            enroll.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row from the table.");
+        }
+    }//GEN-LAST:event_btnEnrollActionPerformed
 
     /**
      * @param args the command line arguments
@@ -673,9 +735,21 @@ public class SubjSched extends javax.swing.JFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnGrade;
+    private javax.swing.JButton btnEnroll;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnView;
+    private javax.swing.JComboBox<String> cbBlkNum;
+    private javax.swing.JComboBox<String> cbColC;
+    private javax.swing.JComboBox<String> cbDay;
+    private javax.swing.JComboBox<String> cbFaqID;
+    private javax.swing.JComboBox<String> cbSY;
+    private javax.swing.JComboBox<String> cbSY2;
+    private javax.swing.JComboBox<String> cbSY4;
+    private javax.swing.JComboBox<String> cbSY9;
+    private javax.swing.JComboBox<String> cbSem;
+    private javax.swing.JComboBox<String> cbSeqNum;
+    private javax.swing.JComboBox<String> cbSubC;
+    private javax.swing.JComboBox<String> cbType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -694,16 +768,7 @@ public class SubjSched extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panSched;
     private javax.swing.JTable tblSched;
-    private javax.swing.JTextField tfBlkNum;
-    private javax.swing.JTextField tfColC;
-    private javax.swing.JTextField tfDay;
-    private javax.swing.JTextField tfFaqID;
     private javax.swing.JTextField tfRoom;
-    private javax.swing.JTextField tfSemester;
-    private javax.swing.JTextField tfSeqNum;
-    private javax.swing.JTextField tfSubC;
     private javax.swing.JTextField tfTime;
-    private javax.swing.JTextField tfType;
-    private javax.swing.JTextField tfsy;
     // End of variables declaration//GEN-END:variables
 }

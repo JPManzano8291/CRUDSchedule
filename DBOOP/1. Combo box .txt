@@ -1,0 +1,78 @@
+1. Combo box :
+ School Year (2022 - 2023 up to 2023-2024), 
+ Semester (1,2),
+ College Code ()
+ Block No (IT31, to IT35),IS01, IT311, IT312, IT314, IT315, IT316)
+ Day (M - S)
+ Type (F2F or OLC)
+ Sequence Number (01 to 03)
+ Faculty ID (E001 - E003)
+
+2. Add new button in Sched named Enroll Student
+ - When button was clicked, open new Jframe
+ - Table for
+ - Student Number (001 - 010)
+ - Last Name
+ - First Name
+ - School Year (Database)
+ - Semester (Database)
+ - Block No. (Database)
+ - Faculty ID (Database)
+ - Status (Combo Box - Enrolled or Unenrolled)
+
+Remove the Grade button in Schedule, then put it in Enroll Student JFrame
+
+tblSched
+sy (tblEnroll) (tblGrades)
+semester (tblEnroll) (tblGrades)
+college_code
+block_no (tblEnroll) (tblGrades)
+subject_code (tblEnroll) (tblGrades)
+day
+time
+type 
+room
+sequence_no
+faculty_ID (tblEnroll)
+
+tblEnroll
+Student_No (tblGrades)
+Last_Name
+First_Name
+sy
+semester
+subject_code
+block_no
+faculty_ID
+Status
+
+tblGrades
+sy
+semester
+student_no
+subject_code
+block_no
+grade
+
+
+CREATE TABLE tblGrades (
+    grades_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    sy VARCHAR (20) NOT NULL,
+    semester VARCHAR(20) NOT NULL,
+    student_No VARCHAR(20) NOT NULL,
+    subject_code VARCHAR(20) NOT NULL,
+    block_no VARCHAR(20) NOT NULL,
+    grade VARCHAR (20) NOT NULL,
+    FOREIGN KEY (sy, semester, subject_code, block_no) REFERENCES tblschedule (sy , semester, subject_code, block_no),
+    FOREIGN KEY (student_no) REFERENCES tblenroll (student_no)
+);
+
+
+
+
+
+
+
+
+
+

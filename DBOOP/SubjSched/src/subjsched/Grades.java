@@ -8,6 +8,8 @@ import java.awt.HeadlessException;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -23,7 +25,9 @@ public class Grades extends javax.swing.JFrame {
      */
     public Grades() {
         initComponents();
-        javaConnection.connectdb();
+    }
+    
+    public void setGradesData() {
     }
 
     /**
@@ -45,24 +49,30 @@ public class Grades extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tfStudNum = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tfGrade = new javax.swing.JTextField();
         tfBlkNum = new javax.swing.JTextField();
         tfSubjC = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        tfLastN = new javax.swing.JTextField();
+        tfFirstN = new javax.swing.JTextField();
+        tfGrade = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
-        btnRefresh = new javax.swing.JButton();
+        tfSYear = new javax.swing.JTextField();
+        tfSem = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGrades = new javax.swing.JTable();
 
@@ -88,24 +98,27 @@ public class Grades extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("SY:");
 
+        tfsy.setEditable(false);
         tfsy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        tfSemester.setEditable(false);
         tfSemester.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("SEMESTER:");
 
+        tfStudNum.setEditable(false);
         tfStudNum.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("STUDENT NUMBER:");
 
-        tfGrade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
+        tfBlkNum.setEditable(false);
         tfBlkNum.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        tfSubjC.setEditable(false);
         tfSubjC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
@@ -121,14 +134,6 @@ public class Grades extends javax.swing.JFrame {
         jLabel8.setText("GRADE:");
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/subjsched/logo.png"))); // NOI18N
-
-        btnAdd.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
 
         btnEdit.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnEdit.setText("Edit");
@@ -170,59 +175,80 @@ public class Grades extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("LAST NAME:");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("FIRST NAME:");
+
+        tfLastN.setEditable(false);
+        tfLastN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        tfFirstN.setEditable(false);
+        tfFirstN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        tfGrade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout panSchedLayout = new javax.swing.GroupLayout(panSched);
         panSched.setLayout(panSchedLayout);
         panSchedLayout.setHorizontalGroup(
             panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panSchedLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panSchedLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panSchedLayout.createSequentialGroup()
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panSchedLayout.createSequentialGroup()
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(panSchedLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfSubjC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfFirstN, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfLastN, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)))
+                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panSchedLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panSchedLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfsy, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panSchedLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panSchedLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfStudNum, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panSchedLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panSchedLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfSubjC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(5, 5, 5)))
-                .addGap(13, 13, 13))
+                                .addGap(36, 36, 36)
+                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tfStudNum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panSchedLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfsy, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25))
+            .addGroup(panSchedLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 17, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(103, Short.MAX_VALUE)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
                         .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -231,10 +257,11 @@ public class Grades extends javax.swing.JFrame {
                         .addGap(126, 126, 126))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(73, 73, 73))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
-                        .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117))))
+                        .addGap(73, 73, 73))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSchedLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(117, 117, 117))
         );
         panSchedLayout.setVerticalGroup(
             panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,55 +272,57 @@ public class Grades extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGrade)
-                .addGap(30, 30, 30)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfsy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGap(33, 33, 33)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tfsy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfStudNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(tfLastN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(tfFirstN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfStudNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfSubjC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panSchedLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel6))
-                    .addGroup(panSchedLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(tfBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))))
-                .addGap(68, 68, 68)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
+                    .addComponent(tfBlkNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(tfGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit)
                     .addComponent(btnSave))
-                .addGap(49, 49, 49)
+                .addGap(31, 31, 31)
                 .addGroup(panSchedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete)
-                    .addComponent(btnView))
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 0));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("SEARCH STUDENT:");
-
-        tfSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setText("SEARCH:");
 
         btnSearch.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnSearch.setText("Search");
@@ -303,54 +332,65 @@ public class Grades extends javax.swing.JFrame {
             }
         });
 
-        btnRefresh.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        btnRefresh.setText("Refresh");
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
-            }
-        });
+        jLabel12.setText("School Year");
+
+        jLabel13.setText("Semester");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(80, 80, 80)
                 .addComponent(jLabel9)
-                .addGap(44, 44, 44)
-                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
-                .addComponent(btnSearch)
                 .addGap(18, 18, 18)
-                .addComponent(btnRefresh)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(btnSearch)
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfSYear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfSem, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch)
-                    .addComponent(btnRefresh))
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSearch)
+                        .addComponent(tfSYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfSem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         tblGrades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SY", "SEMESTER", "STUDENT NUMBER", "SUBJECT CODE", "BLOCK NO.", "GRADE"
+                "SY", "SEMESTER", "STUDENT NUMBER", "LAST NAME", "FIRST NAME", "SUBJECT CODE", "BLOCK NO.", "GRADE"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -370,7 +410,7 @@ public class Grades extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -386,88 +426,73 @@ public class Grades extends javax.swing.JFrame {
 
     private void updateTable() {
     try {
-        String query = "SELECT * FROM TBLGrades";
-        PreparedStatement pst = con.prepareStatement(query);
-        ResultSet rs = pst.executeQuery();
+    // Select all rows from TBLGRADES
+    String query = "SELECT * FROM TBLGRADES WHERE status = 'Enrolled'";
+    PreparedStatement pst = con.prepareStatement(query);
+    ResultSet rs = pst.executeQuery();
 
-        // Creating DefaultTableModel for the table
-        DefaultTableModel model = new DefaultTableModel();
-        tblGrades.setModel(model);
+    // Creating DefaultTableModel for the table
+    DefaultTableModel model = new DefaultTableModel();
+    tblGrades.setModel(model);
 
-        // Adding columns to the model
-        ResultSetMetaData metaData = rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-            model.addColumn(metaData.getColumnName(columnIndex));
-        }
-
-        // Adding rows to the model
-        while (rs.next()) {
-            Object[] row = new Object[columnCount];
-            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                row[columnIndex - 1] = rs.getObject(columnIndex);
-            }
-            model.addRow(row);
-        }
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, e);
+    // Adding columns to the model
+    ResultSetMetaData metaData = rs.getMetaData();
+    int columnCount = metaData.getColumnCount();
+    for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+        model.addColumn(metaData.getColumnName(columnIndex));
     }
+
+    // Adding rows to the model
+    while (rs.next()) {
+        Object[] row = new Object[columnCount];
+        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+            row[columnIndex - 1] = rs.getObject(columnIndex);
+        }
+        model.addRow(row);
+    }
+
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this, e);
+}
 }
     
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        try {
-            String q = "INSERT INTO tblGrades (sy, Semester, student_no, Subject_Code, Block_No, grade) values (?,?,?,?,?,?)";
-            pst = con.prepareStatement(q);
-            pst.setString(1, tfsy.getText());
-            pst.setString(2, tfSemester.getText());
-            pst.setString(3, tfStudNum.getText());
-            pst.setString(4, tfSubjC.getText());
-            pst.setString(5, tfBlkNum.getText());
-            pst.setString(6, tfGrade.getText());
-            
-            pst.executeUpdate();
-            
-            tfsy.setText("");
-            tfSemester.setText("");
-            tfStudNum.setText("");
-            tfSubjC.setText("");
-            tfBlkNum.setText("");
-            tfGrade.setText("");
-            updateTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
+    
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
          try {
-            int selectedRow = tblGrades.getSelectedRow();
-            
-            if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(this, "Please select a row to edit.");
-                return;
-            }
-            
-            String sy = tblGrades.getValueAt(selectedRow, 0).toString();
-            String semester = tblGrades.getValueAt(selectedRow, 1).toString();
-            String studN = tblGrades.getValueAt(selectedRow, 2).toString();
-            String subC = tblGrades.getValueAt(selectedRow, 3).toString();
-            String blkNum = tblGrades.getValueAt(selectedRow, 4).toString();
-            String grd = tblGrades.getValueAt(selectedRow, 5).toString();
-            
-            tfsy.setText(sy);
-            tfSemester.setText(semester);
-            tfStudNum.setText(studN);
-            tfSubjC.setText(subC);
-            tfBlkNum.setText(blkNum);
-            tfGrade.setText(grd);
-            
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, e);
+        int selectedRow = tblGrades.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to edit");
+            return;
         }
+
+        String sy = getValueAsString(tblGrades.getValueAt(selectedRow, 1));
+        String semester = getValueAsString(tblGrades.getValueAt(selectedRow, 2));
+        String studN = getValueAsString(tblGrades.getValueAt(selectedRow, 3));
+        String lastN = getValueAsString(tblGrades.getValueAt(selectedRow, 4));
+        String firstN = getValueAsString(tblGrades.getValueAt(selectedRow, 5));
+        String subC = getValueAsString(tblGrades.getValueAt(selectedRow, 6));
+        String blkNum = getValueAsString(tblGrades.getValueAt(selectedRow, 7));
+        String grd = getValueAsString(tblGrades.getValueAt(selectedRow, 8));
+
+        // Set the values to the corresponding text fields
+        tfsy.setText(sy);
+        tfSemester.setText(semester);
+        tfLastN.setText(lastN);
+        tfFirstN.setText(firstN);
+        tfStudNum.setText(studN);
+        tfSubjC.setText(subC);
+        tfBlkNum.setText(blkNum);
+        tfGrade.setText(grd);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, e);
+    }
     }//GEN-LAST:event_btnEditActionPerformed
 
+        private String getValueAsString(Object value) {
+        return (value != null) ? value.toString() : "";
+    }
+    
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
         int selectedRow = tblGrades.getSelectedRow();
@@ -477,70 +502,86 @@ public class Grades extends javax.swing.JFrame {
             return;
         }
 
-        String studN = tblGrades.getValueAt(selectedRow, 2).toString();
+        String gradesN = tblGrades.getValueAt(selectedRow, 0).toString();
 
         int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the record?", "Warning", JOptionPane.YES_NO_OPTION);
         if (dialogResult == JOptionPane.YES_OPTION) {
-            String query = "DELETE FROM tblGrades WHERE student_no=?";
-            pst = con.prepareStatement(query);
-            pst.setString(1, studN);
-            pst.executeUpdate();
+            try {
+                // Deletion code
+                String query = "DELETE FROM tblGrades WHERE grades_id=?";
+                pst = con.prepareStatement(query);
+                pst.setString(1, gradesN);
+                int rowsDeleted = pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(this, "Record deleted successfully.");
-            updateTable();
+                // Commit the transaction
+                con.commit();
+
+                if (rowsDeleted > 0) {
+                    JOptionPane.showMessageDialog(this, "Record deleted successfully.");
+                    
+                    // Refresh the data in the UI
+                    String selectedSubjectCode = tfSubjC.getText();
+                    String selectedBlockNo = tfBlkNum.getText();
+                    updateTable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No records deleted. Verify the Grades_ID.");
+                }
+            } catch (SQLException e) {
+                // Print the exception details
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error deleting record: " + e.getMessage());
+            }
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, e);
-    }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        tfsy.setText("");
-        tfSemester.setText("");
-        tfStudNum.setText("");
-        tfSubjC.setText("");
-        tfBlkNum.setText("");
         tfGrade.setText("");
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        updateTable();
+        updateTable();    
     }//GEN-LAST:event_btnViewActionPerformed
 
+    
+    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
-            int selectedRow = tblGrades.getSelectedRow();
-            
-            if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(this, "Please select a row to save changes.");
-                return;
-            }
-            
-            String sy = tfsy.getText();
-            String semester = tfSemester.getText();
-            String studN = tfStudNum.getText();
-            String subC = tfSubjC.getText();
-            String blkNum = tfBlkNum.getText();
-            String grd = tfGrade.getText();
-            
-            String query = "UPDATE tblGrades SET sy=?, Semester=?, student_no=?, Subject_Code=?, Block_No=?, grade=? WHERE student_no=?";
-            
-            pst = con.prepareStatement(query);
-            pst.setString(1, sy);
-            pst.setString(2, semester);
-            pst.setString(3, studN);
-            pst.setString(4, subC);
-            pst.setString(5, blkNum);
-            pst.setString(6, grd);
-            pst.setString(7, studN);
-            
-            pst.executeUpdate();
-            
-            JOptionPane.showMessageDialog(this , "Change saved successfully.");
-            updateTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
+        // Check if a subject code is selected
+        String selectedSubjectCode = tfSubjC.getText();
+        if (selectedSubjectCode.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a subject code.");
+            return;
         }
+
+        // If the student number is unique, proceed with updating the record
+        String updateQuery = "UPDATE tblGrades SET sy=?, Semester=?, last_name=?, first_name=?, Subject_Code=?, Block_No=?, grade=?, status='Enrolled' WHERE student_no=?";
+        try (PreparedStatement pst = con.prepareStatement(updateQuery)) {
+            pst.setString(1, tfsy.getText());
+            pst.setString(2, tfSemester.getText());
+            pst.setString(3, tfLastN.getText());
+            pst.setString(4, tfFirstN.getText());
+            pst.setString(5, tfSubjC.getText());
+            pst.setString(6, tfBlkNum.getText());
+            pst.setString(7, tfGrade.getText());
+            pst.setString(8, tfStudNum.getText());
+
+            int rowsUpdated = pst.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                updateTable(); // Assuming this method updates your JTable
+                JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No record found for the given student number.");
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, e);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, e);
+    }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
@@ -550,53 +591,80 @@ public class Grades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGradeActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        
-        try {
-            String searchStudentNumber = tfSearch.getText().trim();
-            
-            if (searchStudentNumber.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter a student number to search.");
-                return;
-            }
-            
-            String query = "SELECT * FROM tblGrades WHERE student_no=?";
-            pst = con.prepareStatement(query);
-            pst.setString(1, searchStudentNumber);
-            
-            ResultSet rs = pst.executeQuery();
-            
-            DefaultTableModel model = new DefaultTableModel();
-            tblGrades.setModel(model);
-            
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                model.addColumn(metaData.getColumnName(columnIndex));
-            }
-            
-            while (rs.next()) {
-                Object[] row = new Object[columnCount];
-                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                    row[columnIndex - 1] = rs.getObject(columnIndex);
-                }
-                model.addRow(row);
-            }
-            
-            if (model.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No record found for the given student number.");
-            }
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e);
+        String searchValue = tfSearch.getText().trim();
+        String schoolYearFilter = "sy = ?";
+        String semesterFilter = "semester = ?";
+        String nameFilter = "(student_No LIKE ? OR last_name LIKE ? OR first_name LIKE ?)";
+
+try {
+    String query = "SELECT * FROM tblGrades WHERE status = ?";
+
+    if (!tfSYear.getText().isEmpty()) {
+        query += " AND " + schoolYearFilter;
+    }
+    if (!tfSem.getText().isEmpty()) {
+        query += " AND " + semesterFilter;
+    }
+    if (!tfSearch.getText().isEmpty()) {
+        query += " AND " + nameFilter;
+    }
+
+    pst = con.prepareStatement(query);
+    pst.setString(1, "Enrolled");  // Assuming 'Enrolled' is the status you want to filter by
+
+    // Set additional parameters if applicable
+    int parameterIndex = 2; // The index of the next parameter
+
+    if (!tfSYear.getText().isEmpty()) {
+        pst.setString(parameterIndex++, tfSYear.getText().trim());
+    }
+
+    if (!tfSem.getText().isEmpty()) {
+        pst.setString(parameterIndex++, tfSem.getText().trim());
+    }
+    
+    if (!tfSearch.getText().isEmpty()) {
+            pst.setString(parameterIndex++, "%" + searchValue + "%");
+            pst.setString(parameterIndex++, "%" + searchValue + "%");
+            pst.setString(parameterIndex, "%" + searchValue + "%");
         }
-        
+
+    ResultSet rs = pst.executeQuery();
+
+    // Retrieve parameter values using ResultSetMetaData
+    ResultSetMetaData metaData = rs.getMetaData();
+    int columnCount = metaData.getColumnCount();
+
+    DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
+
+    // Clear existing columns and data
+    model.setColumnCount(0);
+    model.setRowCount(0);
+
+    // column headers
+    for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+        model.addColumn(metaData.getColumnName(columnIndex));
+    }
+
+    // column data
+    while (rs.next()) {
+        Object[] row = new Object[columnCount];
+        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+            row[columnIndex - 1] = rs.getObject(columnIndex);
+        }
+        model.addRow(row);
+    }
+
+    if (model.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "No records found for the given search criteria.");
+    }
+
+} catch (SQLException e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "An error occurred while executing the query. Please check the console for details.");
+}
     }//GEN-LAST:event_btnSearchActionPerformed
-
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        updateTable();
-        tfSearch.setText("");
-    }//GEN-LAST:event_btnRefreshActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -626,6 +694,7 @@ public class Grades extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Grades().setVisible(true);
             }
@@ -633,16 +702,18 @@ public class Grades extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnGrade;
-    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -657,11 +728,20 @@ public class Grades extends javax.swing.JFrame {
     private javax.swing.JPanel panSched;
     private javax.swing.JTable tblGrades;
     private javax.swing.JTextField tfBlkNum;
+    private javax.swing.JTextField tfFirstN;
     private javax.swing.JTextField tfGrade;
+    private javax.swing.JTextField tfLastN;
+    private javax.swing.JTextField tfSYear;
     private javax.swing.JTextField tfSearch;
+    private javax.swing.JTextField tfSem;
     private javax.swing.JTextField tfSemester;
     private javax.swing.JTextField tfStudNum;
     private javax.swing.JTextField tfSubjC;
     private javax.swing.JTextField tfsy;
     // End of variables declaration//GEN-END:variables
+
+    private Object[] getSelectedRowData() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
